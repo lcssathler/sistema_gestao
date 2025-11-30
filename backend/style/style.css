@@ -47,6 +47,12 @@ body {
     text-transform: uppercase;
 }
 
+#page-title {
+    margin-top: 0; 
+    color: #475569;
+    text-align: center;
+}
+
 .form-group {
     margin-bottom: 1.5rem;
 }
@@ -136,4 +142,12 @@ label {
     align-items: center;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     border-bottom: 1px solid #e2e8f0;
+}
+
+.error-msg {
+    color: #dc2626; 
+    display: none; 
+    font-size: 0.85rem; 
+    font-weight: 500;
+    margin-top: 10px;
 }
