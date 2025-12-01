@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Person Management</title>
+    <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="../style/components.css">
+</head>
+<body>
+    <nav class="navbar">
+        <h3 class="title-nav-dashboard">Person<span style="color: #333;">Management</span></h3>
+        <div class="navbar-user-info">
+            <div class="navbar-user-details">
+                <span id="nav-username" class="navbar-username">User</span>
+                <span id="nav-role" class="navbar-role">Role</span>
+            </div>
+            <button onclick="App.logout()" class="btn btn-outline btn-sm">Sair</button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <!-- ADMIN -->
+        <div id="admin-view" class="hidden">
+            <div class="page-header">
+                <div>
+                    <h2 class="page-title">Control Painel</h2>
+                    <p class="page-subtitle">Manage all users</p>
+                </div>
+                <a href="user-details.html" class="btn btn-primary">
+                    New user
+                </a>
+            </div>
+            
+            <div id="user-grid" class="user-grid">
+            </div>
+
+            <div id="user-card-template" class="card hidden card-hover">
+                <div class="card-grid-layout">
+                    <h3 class="card-name"></h3>
+                    <span class="card-role"></span>
+                </div>
+                <p class="card-email"></p>
+                
+                <div class="card-actions-grid">
+                    <button class="btn btn-primary btn-sm card-details-btn">
+                        View all details
+                    </button>
+                    <a class="btn btn-outline btn-sm card-edit-btn card-edit-link">Edit</a>
+                    <button class="btn btn-danger btn-sm card-delete-btn">Delete</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- USER -->
+        <div id="user-view" class="hidden">
+            <div class="card welcome-card">
+                <h2 class="title-nav-dashboard">Welcome, <span id="welcome-name"></span>!</h2>
+                <p class="p-card-dashboard">You can view your informations down below.</p>
+                <button onclick="goToMyProfile()" class="btn btn-primary">My profile</button>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="details-modal" class="modal-overlay hidden">
+        <div class="modal-box-dashboard modal-box">
+            <div class="modal-header-flex">
+                <h3 class="modal-title" style="margin: 0;">User informations</h3>
+                <button onclick="closeDetailsModal()" class="modal-close-btn">&times;</button>
+            </div>
+            
+            <div id="modal-content" class="modal-content-wrapper">
+            </div>
+
+            <div id="modal-content-template" class="hidden modal-details-grid">
+                <div class="modal-detail-full-width">
+                    <small class="modal-detail-label">Full name</small>
+                    <strong class="modal-detail-name"></strong>
+                </div>
+                
+                <div class="modal-detail-full-width">
+                    <small class="modal-detail-label">Email</small>
+                    <span class="modal-detail-email modal-detail-value"></span>
+                </div>
+
+                <div>
+                    <small class="modal-detail-label">CPF</small>
+                    <span class="modal-detail-cpf modal-detail-value"></span>
+                </div>
+
+                <div>
+                    <small class="modal-detail-label">Birth date</small>
+                    <span class="modal-detail-birth modal-detail-value"></span>
+                </div>
+
+                <div>
+                    <small class="modal-detail-label">Permissions</small>
+                    <span class="modal-detail-role modal-detail-value"></span>
+                </div>
+                
+                <div>
+                    <small class="modal-detail-label">System ID</small>
+                    <span class="modal-detail-id modal-detail-value"></span>
+                </div>
+            </div>
+
+            <div class="modal-actions modal-actions-dashboard">
+                <button onclick="closeDetailsModal()" class="btn btn-outline">Close</button>
+                <button id="modal-edit-btn" class="btn btn-primary">Edit informations</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+    <div id="toast-template" class="toast hidden"><span>🔔</span> <span class="toast-msg"></span></div>
+
+    <div id="generic-modal" class="modal-overlay hidden">
+        <div class="modal-box">
+            <div id="modal-title" class="modal-title">Confirm</div>
+            <div id="modal-text" class="modal-text">Text</div>
+            <div class="modal-actions">
+                <button id="modal-cancel-btn" class="btn btn-outline">Cancel</button>
+                <button id="modal-confirm-btn" class="btn btn-danger">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../app/script.js"></script>
+    <script src="../app/dashboard.js"></script>
+</body>
+</html>

@@ -26,7 +26,13 @@ const checkPassword = () => {
 const checkCPF = () => {
     const val = cpfInput.value.replace(/[^\d]+/g,'');
     if (val.length === 0) return false;
-    return val.length === 11 && jsbrasil.validateBr.cpf(val);
+    if (val.length !== 11) return false;
+    
+    if (typeof jsbrasil !== 'undefined' && jsbrasil.validateBr && jsbrasil.validateBr.cpf) {
+        return jsbrasil.validateBr.cpf(val);
+    }
+    
+    return true;
 };
 
 function updateButtonState() {
@@ -53,7 +59,9 @@ function setupValidation(input, errorEl, validatorFn) {
     input.addEventListener('input', () => {
         if (input === emailInput) serverEmailError.style.display = 'none';
         
-        if (input === cpfInput) cpfInput.value = jsbrasil.maskBr.cpf(cpfInput.value);
+        if (input === cpfInput && typeof jsbrasil !== 'undefined' && jsbrasil.maskBr && jsbrasil.maskBr.cpf) {
+            cpfInput.value = jsbrasil.maskBr.cpf(cpfInput.value);
+        }
 
         const isValid = validatorFn();
         if (isValid) {
@@ -87,7 +95,13 @@ async function loadUser() {
         const user = await App.api(`users/${editId}`); 
         nameInput.value = user.name;
         emailInput.value = user.email;
-        cpfInput.value = jsbrasil.maskBr.cpf(user.cpf || ''); 
+        
+        if (typeof jsbrasil !== 'undefined' && jsbrasil.maskBr && jsbrasil.maskBr.cpf) {
+            cpfInput.value = jsbrasil.maskBr.cpf(user.cpf || '');
+        } else {
+            cpfInput.value = user.cpf || '';
+        }
+        
         document.getElementById('birth_date').value = user.birth_date || '';
         document.getElementById('role').value = user.role;
         
@@ -119,7 +133,11 @@ form.addEventListener('submit', (e) => {
         }
 
         const method = isEditMode ? 'PUT' : 'POST';
-        const endpoint = isEditMode ? `users/${editId}` : ''; 
+        const endpoint = isEditMode ? `users/${editId}` : 'users'; 
+
+        console.log('Submitting data:', data);
+        console.log('Endpoint:', endpoint);
+        console.log('Method:', method);
 
         try {
             await App.api(endpoint, method, data);

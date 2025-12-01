@@ -1,4 +1,4 @@
-const BACKEND_API = 'api/index.php'; 
+const BACKEND_API = '../api/index.php'; 
 
 const App = {
     getUser: () => JSON.parse(localStorage.getItem('user')),
@@ -62,10 +62,8 @@ const App = {
             
             if (path === 'login') {
                 url += '?action=login';
-            } else if (path.includes('/')) {
-                const parts = path.split('/');
-                const id = parts[1];
-                url += `?id=${id}`;
+            } else if (path) {
+                url = BACKEND_API.replace('index.php', `index.php/${path}`);
             }
             
             const options = {
