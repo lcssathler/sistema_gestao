@@ -8,6 +8,15 @@ const App = {
         return user;
     },
 
+    logout: () => {
+        try {
+            localStorage.removeItem('user');
+        } catch (e) {
+            console.error('Error clearing user from localStorage', e);
+        }
+        window.location.href = 'login.html';
+    },
+
     showToast: (message, type = 'success') => {
         const template = document.getElementById('toast-template');
         const container = document.getElementById('toast-container');
