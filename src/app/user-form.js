@@ -25,7 +25,9 @@ const checkPassword = () => {
 };
 const checkCPF = () => {
     const val = cpfInput.value.replace(/[^\d]+/g,'');
-    if (val.length === 0) return false;
+    // CPF é opcional - retorna true se vazio
+    if (val.length === 0) return true;
+    // Se tem valor, valida o comprimento
     if (val.length !== 11) return false;
     
     if (typeof jsbrasil !== 'undefined' && jsbrasil.validateBr && jsbrasil.validateBr.cpf) {
